@@ -21,6 +21,7 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
 - [3. VS Code](#3-vs-code)
 - [4. Decorators](#4-decorators)
   - [4.1. Controllers / Requests decorators](#41-controllers--requests-decorators)
+- [5. Tips & notes](#5-tips--notes)
 
 <!-- /TOC -->
 
@@ -85,9 +86,9 @@ It allows to send requests thru VS Code and offers a kind of documentation of th
 
 A _"Send request"_ button appears to test request.
 
-## Decorators
+## 4. Decorators
 
-### Controllers / Requests decorators
+### 4.1. Controllers / Requests decorators
 
 Let's use an example
 
@@ -105,3 +106,19 @@ POST /messages/5?validate=true HTTP/1.1
   - Host: localhost: 4000
   - Content-Type: application/json
 - @Body: get the content of the body
+
+## 5. Tips & notes
+
+- Use `class-validator` to validate properties
+- Use `class-transformer` to transform JSON objects into class instances
+- Services VS Repositories
+  - Services
+    - It's a class
+    - #1 place to put any business logic
+    - Uses one more repositoires to find and store data
+    - Target one or several repositories, add extra logic about combined data, etc...
+  - Repositories
+    - It's a class
+    - #1 place to put storage-related logic
+    - Usually ends up being a TypeORM entity, a Mongoose schema or similar
+    - Target a single entity type, with basic DTO methods
