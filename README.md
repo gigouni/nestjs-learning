@@ -19,6 +19,8 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
   - [1.2. Naming conventions](#12-naming-conventions)
 - [2. NestJS CLI commands](#2-nestjs-cli-commands)
 - [3. VS Code](#3-vs-code)
+- [4. Decorators](#4-decorators)
+  - [4.1. Controllers / Requests decorators](#41-controllers--requests-decorators)
 
 <!-- /TOC -->
 
@@ -82,3 +84,24 @@ Install the `humao.rest-client` extension and add a `requests.http` file in the 
 It allows to send requests thru VS Code and offers a kind of documentation of the existing routes of the app.
 
 A _"Send request"_ button appears to test request.
+
+## Decorators
+
+### Controllers / Requests decorators
+
+Let's use an example
+
+```curl
+POST /messages/5?validate=true HTTP/1.1
+
+{
+    "content": "hi there"
+}
+```
+
+- @Param('id'): get the value of the 'id' param (aka 5 _(as a string!)_)
+- @Query(): extract 'validate=true' ("Query" like "QueryString")
+- @Headers(): get the headers
+  - Host: localhost: 4000
+  - Content-Type: application/json
+- @Body: get the content of the body
