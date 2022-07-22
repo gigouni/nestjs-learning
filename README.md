@@ -22,6 +22,10 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
 - [4. Decorators](#4-decorators)
   - [4.1. Controllers / Requests decorators](#41-controllers--requests-decorators)
 - [5. Tips & notes](#5-tips--notes)
+- [6. Inversion of Control Principle](#6-inversion-of-control-principle)
+  - [6.1. Bad version](#61-bad-version)
+  - [6.2. Better version](#62-better-version)
+  - [6.3. Best version](#63-best-version)
 
 <!-- /TOC -->
 
@@ -122,3 +126,67 @@ POST /messages/5?validate=true HTTP/1.1
     - #1 place to put storage-related logic
     - Usually ends up being a TypeORM entity, a Mongoose schema or similar
     - Target a single entity type, with basic DTO methods
+
+## 6. Inversion of Control Principle
+
+Classes should not create instances of its dependenies on its own.
+
+### Bad version
+
+```typescript
+export class MessagesService {
+  messagesRepo: MessagesRepository;
+
+  constructor() {
+    // MessagesService __creates__ its own copy of MessagesRepository.
+    this.messagesRepo = new MessagesRepository();
+  }
+}
+```
+
+### Better version
+
+```typescript
+export class MessagesService {
+  messagesRepo: MessagesRepository;
+
+  constructor(repo: MessagesRepository) {
+    // MessagesService __receives__ its dependency
+    // It relies on a copy of the MessagesRepository passed in parameters
+    this.messagesRepo = repo;
+  }
+}
+```
+
+### Best version
+
+```typescript
+interface Repository {
+  findOne(id: string);
+  findAll();
+  create(content: string);
+}
+
+export class MessagesService {
+  messagesRepo: Repository;
+
+  constructor(repo: Repository) {
+    // MessagesService __receives__ its dependency
+    // It doesn't specifically require 'MessagesRepository' but any object that satisfies the interface (it could be the Messagesrepository or any other repository)
+    this.messagesRepo = repo;
+  }
+}
+```
+
+**Why it's the best answer?**
+
+- In Production...
+  - class MessagesService // I need something taht has findOne, findAll and create method to work perfectly
+  -      ^
+  -      |
+  - class MessagesRepository // I can help you! I write to the hard disk, so I am a little slower
+- While Automated Testing...
+  - class MessagesService // I need something taht has findOne, findAll and create method to work perfectly
+  -      ^
+  -      |
+  - class FakeRepository // I can help you! I don't actually write to the hard disk, so I am run fastly!
