@@ -14,13 +14,17 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
 
 <!-- TOC -->
 
-- [1. NestJS projects structure](#1-nestjs-projects-structure)
-- [2. Naming conventions](#2-naming-conventions)
-- [3. NestJS CLI commands](#3-nestjs-cli-commands)
+- [1. NestJS conventions](#1-nestjs-conventions)
+  - [1.1. Projects structure](#11-projects-structure)
+  - [1.2. Naming conventions](#12-naming-conventions)
+- [2. NestJS CLI commands](#2-nestjs-cli-commands)
+- [3. VS Code](#3-vs-code)
 
 <!-- /TOC -->
 
-## 1. NestJS projects structure
+## 1. NestJS conventions
+
+### 1.1. Projects structure
 
 - Pipe: help validating data in cinoming requests
 - Guard: make sure the user is authenticated
@@ -31,18 +35,27 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
 - Filter: handle errors that occur during request handling
 - Interceptor: add extra logic to incoming requests or outgoing responses
 
-## 2. Naming conventions
+### 1.2. Naming conventions
 
 - One class per file (some exceptions)
 - Class names should include the kind of thing we're creating
 - Name of class and name of file should always match up
 - Filename template: name.type_of_thing.ts
 
-## NestJS CLI commands
+## 2. NestJS CLI commands
 
 ```shell
 # Generate a new NestJs project boilerplate
 nest new nestjs-learning
+
+# Generate a new Module
+nest g module messages
+
+# Generate a new Controller within an existing module
+# controller: type of class to generate
+# messages/messages: path where to generate the new Controller
+# --flat: don't create an extra folder called "controllers" [OPTIONAL]
+nest g controller messages/messages --flat
 
 # Running the app
 $ npm run start
@@ -62,3 +75,10 @@ $ npm run test:e2e
 # Test coverage
 $ npm run test:cov
 ```
+
+## 3. VS Code
+
+Install the `humao.rest-client` extension and add a `requests.http` file in the root folder.
+It allows to send requests thru VS Code and offers a kind of documentation of the existing routes of the app.
+
+A _"Send request"_ button appears to test request.
