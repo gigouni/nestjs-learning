@@ -1,6 +1,4 @@
 {
-  "1": {
-    "content": "The first existing message",
-    "id": 1
-  }
+  "1": { "content": "The first existing message to test the API", "id": 1 },
+  "170": { "id": 170, "content": "hi there" }
 }
