@@ -16,32 +16,33 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
 
 - [1. Getting started](#1-getting-started)
 - [2. NestJS conventions](#2-nestjs-conventions)
-  - [2.1. Projects structure](#21-projects-structure)
-  - [2.2. Naming conventions](#22-naming-conventions)
+    - [2.1. Projects structure](#21-projects-structure)
+    - [2.2. Naming conventions](#22-naming-conventions)
 - [3. NestJS CLI commands](#3-nestjs-cli-commands)
 - [4. VS Code](#4-vs-code)
 - [5. Decorators](#5-decorators)
-  - [5.1. Controllers / Requests decorators](#51-controllers--requests-decorators)
+    - [5.1. Controllers / Requests decorators](#51-controllers--requests-decorators)
 - [6. Tips & notes](#6-tips--notes)
 - [7. Inversion of Control Principle](#7-inversion-of-control-principle)
-  - [7.1. Bad version](#71-bad-version)
-  - [7.2. Better version](#72-better-version)
-  - [7.3. Best version](#73-best-version)
+    - [7.1. Bad version](#71-bad-version)
+    - [7.2. Better version](#72-better-version)
+    - [7.3. Best version](#73-best-version)
 - [8. Dependency Injection Flow](#8-dependency-injection-flow)
-  - [8.1. Steps 1 & 2](#81-steps-1--2)
-  - [8.2. Steps 3 & 4](#82-steps-3--4)
-  - [8.3. Examples](#83-examples)
-    - [8.3.1. Injecting an instance of service inside another instance of service](#831-injecting-an-instance-of-service-inside-another-instance-of-service)
+    - [8.1. Steps 1 & 2](#81-steps-1--2)
+    - [8.2. Steps 3 & 4](#82-steps-3--4)
+    - [8.3. Examples](#83-examples)
+        - [8.3.1. Injecting an instance of service inside another instance of service](#831-injecting-an-instance-of-service-inside-another-instance-of-service)
+        - [8.3.2. Injecting an entity](#832-injecting-an-entity)
 - [9. Project examples](#9-project-examples)
-  - [9.1. Project 1: Messages](#91-project-1-messages)
-    - [9.1.1. Features](#911-features)
-    - [9.1.2. Objective](#912-objective)
-  - [9.2. Project 2: Computer](#92-project-2-computer)
-    - [9.2.1. Features](#921-features)
-    - [9.2.2. Objectives](#922-objectives)
-  - [9.3. Project 3: Used Car Pricing API](#93-project-3-used-car-pricing-api)
-    - [9.3.1. Features](#931-features)
-    - [9.3.2. Objectives](#932-objectives)
+    - [9.1. Project 1: Messages](#91-project-1-messages)
+        - [9.1.1. Features](#911-features)
+        - [9.1.2. Objective](#912-objective)
+    - [9.2. Project 2: Computer](#92-project-2-computer)
+        - [9.2.1. Features](#921-features)
+        - [9.2.2. Objectives](#922-objectives)
+    - [9.3. Project 3: Used Car Pricing API](#93-project-3-used-car-pricing-api)
+        - [9.3.1. Features](#931-features)
+        - [9.3.2. Objectives](#932-objectives)
 
 <!-- /TOC -->
 
@@ -245,6 +246,12 @@ Let's admit a first service `Power Service` to inject within a second service `R
 2. Add the `PowerService` to the `PowerModule`'s list of providers and exports
 3. Add the `PowerService` to the `RegulatorModule` 's list of imports
 4. Define the constructor method on `RegulatorService` and add `'PowerService'` to it
+
+#### 8.3.2. Injecting an entity
+
+1. Create an entity file and create a class in it thath lists all the properties that your entity will have
+2. Connect the eneity to its parent module, this creates a repository!
+3. Connect the entity to the root connection (`app.module.ts`)
 
 ## 9. Project examples
 
