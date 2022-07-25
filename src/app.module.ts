@@ -14,7 +14,7 @@ import { User } from './users/user.entity';
       type: 'sqlite',
       database: 'db.sqlite',
       entities: [Report, User],
-      synchronize: true,
+      synchronize: true, // for development environment only! Auto-edit the database structure!
     }),
     UsersModule,
     ReportsModule,
