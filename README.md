@@ -32,8 +32,20 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
   - [8.2. Steps 3 & 4](#82-steps-3--4)
   - [8.3. Examples](#83-examples)
     - [8.3.1. Injecting an instance of service inside another instance of service](#831-injecting-an-instance-of-service-inside-another-instance-of-service)
+- [9. Project examples](#9-project-examples)
+  - [9.1. Project 1: Messages](#91-project-1-messages)
+    - [9.1.1. Features](#911-features)
+    - [9.1.2. Objective](#912-objective)
+  - [9.2. Project 2: Computer](#92-project-2-computer)
+    - [9.2.1. Features](#921-features)
+    - [9.2.2. Objectives](#922-objectives)
+  - [9.3. Project 3: Used Car Pricing API](#93-project-3-used-car-pricing-api)
+    - [9.3.1. Features](#931-features)
+    - [9.3.2. Objectives](#932-objectives)
 
 <!-- /TOC -->
+
+Credits to **Stephen Grider** & **Udemy** course: [NestJS: The Complete Developer's Guide](https://www.udemy.com/course/nestjs-the-complete-developers-guide/).
 
 ## 1. Getting started
 
@@ -233,3 +245,61 @@ Let's admit a first service `Power Service` to inject within a second service `R
 2. Add the `PowerService` to the `PowerModule`'s list of providers and exports
 3. Add the `PowerService` to the `RegulatorModule` 's list of imports
 4. Define the constructor method on `RegulatorService` and add `'PowerService'` to it
+
+## 9. Project examples
+
+### 9.1. Project 1: Messages
+
+#### 9.1.1. Features
+
+App to read messages from a file while being able to update its content.
+
+- Read existing messages from a JSON file (to simulate database)
+- Get all existing messages from file content
+- Get one message by its ID
+
+#### 9.1.2. Objective
+
+- Overview of a basic Nest project structure
+
+### 9.2. Project 2: Computer
+
+#### 9.2.1. Features
+
+- Get (fake) data from a disk service
+- Compute (fake) data from a CPU service
+- Use a common `PowerService` dependency to set power supply
+- Handle the app thru a root module `ComputerModule` to get merged data thru a GET request (API)
+
+#### 9.2.2. Objectives
+
+- Overview of interconnections (aka exports/imports) of modules's services thru a main `run()` method
+
+### 9.3. Project 3: Used Car Pricing API
+
+#### 9.3.1. Features
+
+- Users sign up with email/password
+  - POST /auth/signup
+    - Body { email, password }
+    - Create a new user and sign in
+  - POST /auth/signin
+    - Body { email, password }
+    - Sign in an existing user
+- Users get an estimate for how much their car is worth based on the make/model/year/mileage
+  - GET /reports
+    - QueryString make/model/year/mileage/longitude/latitude
+    - Get an estimate for the cars value
+- Users can report what they sold their vehicles for
+  - POST /reports
+    - Body { make, model, year, mileage, longitude, latitude, price }
+    - Report how much a vehicle sold for
+- Admins have to approve reported sales
+  - PATCH /reports/:id
+    - Body { approved }
+    - Approve or reject a report submitted by a user
+
+#### 9.3.2. Objectives
+
+- More complex examples of interconnections between modules
+- Implement side features like auth, roles, ...
