@@ -1,14 +1,18 @@
+import { Injectable } from '@nestjs/common';
 import { MessagesRepository } from './messages.repository';
 
+@Injectable()
 export class MessagesService {
-  messagesRepo: MessagesRepository;
+  // messagesRepo: MessagesRepository;
 
-  constructor() {
-    // Service is creating its own dependencies
-    // DONT DO THIS ON REAL APPS
-    // Use dependency injection
-    this.messagesRepo = new MessagesRepository();
-  }
+  // constructor(messagesRepo: MessagesRepository) {
+  //   this.messagesRepo = messagesRepo;
+  // }
+
+  // Is the same that the previous block
+  // TypeScript integrates sugar syntax to prevent overloading classes
+  // Do not forget the `public` keyword
+  constructor(public messagesRepo: MessagesRepository) {}
 
   findOne(id: string) {
     return this.messagesRepo.findOne(id);

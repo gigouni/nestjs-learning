@@ -27,6 +27,8 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
   - [6.2. Better version](#62-better-version)
   - [6.3. Best version](#63-best-version)
 - [7. Dependency Injection Flow](#7-dependency-injection-flow)
+  - [7.1. Steps 1 & 2](#71-steps-1--2)
+  - [7.2. Steps 3 & 4](#72-steps-3--4)
 
 <!-- /TOC -->
 
@@ -132,6 +134,8 @@ POST /messages/5?validate=true HTTP/1.1
 
 Classes should not create instances of its dependenies on its own.
 
+> The following examples do not take care of the Nest Dependency Injection Container Flow yet
+
 ### 6.1. Bad version
 
 ```typescript
@@ -195,7 +199,15 @@ export class MessagesService {
 ## 7. Dependency Injection Flow
 
 1. At stratup, register all classes with the container
-2. Container will figure out whatr each dependency each class has
+2. Container will figure out what each dependency each class has
 3. We then ask the container to create an instance of a class for us
 4. Container creates all required dependencies and give us the instance
 5. Container will hold onto the created dependency instances and reuse them if needed
+
+### 7.1. Steps 1 & 2
+
+Use the `Injectable` decorator on each class and add them to the modules list of providers
+
+### 7.2. Steps 3 & 4
+
+Happens automatically - Nest will try to create controller instances for us

@@ -11,13 +11,16 @@ import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
-  messagesService: MessagesService;
+  // messagesService: MessagesService;
 
-  constructor() {
-    // DONT DO THIS ON REAL APPS
-    // Use dependency injection
-    this.messagesService = new MessagesService();
-  }
+  // constructor(messagesService: MessagesService) {
+  //   this.messagesService = messagesRepo;
+  // }
+
+  // Is the same that the previous block
+  // TypeScript integrates sugar syntax to prevent overloading classes
+  // Do not forget the `public` keyword
+  constructor(public messagesService: MessagesService) {}
 
   @Get()
   listMessages() {
