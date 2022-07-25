@@ -26,6 +26,7 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
   - [6.1. Bad version](#61-bad-version)
   - [6.2. Better version](#62-better-version)
   - [6.3. Best version](#63-best-version)
+- [7. Dependency Injection Flow](#7-dependency-injection-flow)
 
 <!-- /TOC -->
 
@@ -131,7 +132,7 @@ POST /messages/5?validate=true HTTP/1.1
 
 Classes should not create instances of its dependenies on its own.
 
-### Bad version
+### 6.1. Bad version
 
 ```typescript
 export class MessagesService {
@@ -144,7 +145,7 @@ export class MessagesService {
 }
 ```
 
-### Better version
+### 6.2. Better version
 
 ```typescript
 export class MessagesService {
@@ -158,7 +159,7 @@ export class MessagesService {
 }
 ```
 
-### Best version
+### 6.3. Best version
 
 ```typescript
 interface Repository {
@@ -190,3 +191,11 @@ export class MessagesService {
   -      ^
   -      |
   - class FakeRepository // I can help you! I don't actually write to the hard disk, so I am run fastly!
+
+## 7. Dependency Injection Flow
+
+1. At stratup, register all classes with the container
+2. Container will figure out whatr each dependency each class has
+3. We then ask the container to create an instance of a class for us
+4. Container creates all required dependencies and give us the instance
+5. Container will hold onto the created dependency instances and reuse them if needed
