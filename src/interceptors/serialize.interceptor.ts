@@ -9,7 +9,12 @@ import { map } from 'rxjs/operators';
 import { plainToClass } from 'class-transformer';
 import { UserDto } from '../users/dtos/user.dto';
 
-export function Serialize(dto: any) {
+// Force to pass a Class to the Serialize interceptor
+interface ClassConstructor {
+  new (...args: any[]): {}; // eslint-disable-line
+}
+
+export function Serialize(dto: ClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
