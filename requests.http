@@ -20,6 +20,26 @@ POST http://localhost:4000/auth/signup
 content-type: application/json
 
 {
-    "email": "development@example.com",
+    "email": "development-2@example.com",
     "password": "awesomeSecret"
 }
+
+### Update a user
+PATCH http://localhost:4000/auth/3
+content-type: application/json
+
+{
+    "password": "newAwesomeSecret"
+}
+
+### Find all users
+GET http://localhost:4000/auth/
+
+### Find a particular user with a given email
+GET http://localhost:4000/auth?email=development@example.com
+
+### Find a particular user with a given ID
+GET http://localhost:4000/auth/1
+
+### Delete a user by ID
+DELETE http://localhost:4000/auth/4

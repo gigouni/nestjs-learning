@@ -2,6 +2,7 @@ import {
   AfterInsert,
   AfterRemove,
   AfterUpdate,
+  BeforeRemove,
   Entity,
   Column,
   PrimaryGeneratedColumn,
@@ -30,8 +31,15 @@ export class User {
     console.log(`Updated user with ID ${this.id}`);
   }
 
+  @BeforeRemove()
+  logBeforeRemove() {
+    console.log(`Removing user with ID ${this.id}`);
+  }
+
   @AfterRemove()
   logRemove() {
+    // Due to deleted instance, the id won't be found after the remove
+    // Use the `BeforeRemove()` hook instead
     console.log(`Removed user with ID ${this.id}`);
   }
 }
