@@ -11,3 +11,6 @@ content-type: application/json
 {
     "content": "hi there"
 }
+
+### Get the Computer 
+GET http://localhost:4000/computer

@@ -29,6 +29,8 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
 - [7. Dependency Injection Flow](#7-dependency-injection-flow)
   - [7.1. Steps 1 & 2](#71-steps-1--2)
   - [7.2. Steps 3 & 4](#72-steps-3--4)
+  - [7.3. Examples](#73-examples)
+    - [7.3.1. Injecting an instance of service inside another instance of service](#731-injecting-an-instance-of-service-inside-another-instance-of-service)
 
 <!-- /TOC -->
 
@@ -211,3 +213,14 @@ Use the `Injectable` decorator on each class and add them to the modules list of
 ### 7.2. Steps 3 & 4
 
 Happens automatically - Nest will try to create controller instances for us
+
+### 7.3. Examples
+
+#### 7.3.1. Injecting an instance of service inside another instance of service
+
+Let's admit a first service `Power Service` to inject within a second service `Regulator Service`
+
+1. Add the `@Injectable` decorator to `power.service.ts`
+2. Add the `PowerService` to the `PowerModule`'s list of providers and exports
+3. Add the `PowerService` to the `RegulatorModule` 's list of imports
+4. Define the constructor method on `RegulatorService` and add `'PowerService'` to it
