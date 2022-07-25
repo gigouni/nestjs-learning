@@ -37,13 +37,30 @@ export class UsersController {
   }
 
   @Post('/signup')
-  createUser(@Body() body: CreateUserDto): Promise<User> {
-    return this.authService.signup(body.email, body.password);
+  async createUser(
+    @Body() body: CreateUserDto,
+    @Session() session: any,
+  ): Promise<User> {
+    const user = await this.authService.signup(body.email, body.password);
+
+    // Update the cookie content to warn about the authenticated user
+    session.userid = user.id;
+
+    return user;
   }
 
   @Post('/signin')
-  signin(@Body() body: CreateUserDto): Promise<User> {
-    return this.authService.signin(body.email, body.password);
+  async signin(
+    @Body() body: CreateUserDto,
+    @Session() session: any,
+  ): Promise<User> {
+    const user = await this.authService.signin(body.email, body.password);
+
+    // Update the cookie content to warn about the authenticated user
+    // If the Session does not detect changes for the session content, the Set-Cookie header won't be triggered!
+    session.userid = user.id;
+
+    return user;
   }
 
   @Get('/:id')
