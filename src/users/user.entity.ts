@@ -7,6 +7,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 // By refering to other conventions, we should be naming it UserEntity
 // BUT, by community conventions, the entities are the only ones allowed to remove the `Entity` suffix
@@ -19,6 +20,7 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude() // Exclude the password from the outgoing responses with @UseInterceptors(ClassSerializerInterceptor) on controller method
   password: string;
 
   @AfterInsert()
