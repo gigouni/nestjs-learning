@@ -36,6 +36,11 @@ export class UsersController {
     return session.color;
   }
 
+  @Get('/whoami')
+  whoAmI(@Session() session: any) {
+    return this.usersService.findOne(session.userId);
+  }
+
   @Post('/signup')
   async createUser(
     @Body() body: CreateUserDto,
@@ -44,7 +49,7 @@ export class UsersController {
     const user = await this.authService.signup(body.email, body.password);
 
     // Update the cookie content to warn about the authenticated user
-    session.userid = user.id;
+    session.userId = user.id;
 
     return user;
   }
@@ -58,9 +63,14 @@ export class UsersController {
 
     // Update the cookie content to warn about the authenticated user
     // If the Session does not detect changes for the session content, the Set-Cookie header won't be triggered!
-    session.userid = user.id;
+    session.userId = user.id;
 
     return user;
+  }
+
+  @Get('/signout')
+  signout(@Session() session: any): void {
+    session.userId = null;
   }
 
   @Get('/:id')

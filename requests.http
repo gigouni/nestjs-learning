@@ -16,6 +16,9 @@ content-type: application/json
     "password": "awesomeSecret"
 }
 
+### Log out current user
+GET http://localhost:4000/auth/signout
+
 ### Update a user
 PATCH http://localhost:4000/auth/3
 content-type: application/json
@@ -41,3 +44,6 @@ GET http://localhost:4000/auth/colors/
 
 ### Update color into session
 GET http://localhost:4000/auth/colors/blue
+
+### Get the current Who Am I
+GET http://localhost:4000/auth/whoami
