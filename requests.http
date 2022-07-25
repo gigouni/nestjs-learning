@@ -1,22 +1,14 @@
-### List all the messages
-GET http://localhost:4000/messages
-
-### Get an existing message by ID
-GET http://localhost:4000/messages/170
-
-### Create a new message
-POST http://localhost:4000/messages
+### Create a new user (signup)
+POST http://localhost:4000/auth/signup
 content-type: application/json
 
 {
-    "content": "hi there"
+    "email": "development-3@example.com",
+    "password": "awesomeSecret"
 }
 
-### Get the Computer 
-GET http://localhost:4000/computer
-
-### Create a new user
-POST http://localhost:4000/auth/signup
+### Create a new user (signin)
+POST http://localhost:4000/auth/signin
 content-type: application/json
 
 {
@@ -35,7 +27,7 @@ content-type: application/json
 ### Find all users
 GET http://localhost:4000/auth/
 
-### Find a particular user with a given email
+### Find users with a given email
 GET http://localhost:4000/auth?email=development@example.com
 
 ### Find a particular user with a given ID
