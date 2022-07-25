@@ -14,29 +14,38 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
 
 <!-- TOC -->
 
-- [1. NestJS conventions](#1-nestjs-conventions)
-  - [1.1. Projects structure](#11-projects-structure)
-  - [1.2. Naming conventions](#12-naming-conventions)
-- [2. NestJS CLI commands](#2-nestjs-cli-commands)
-- [3. VS Code](#3-vs-code)
-- [4. Decorators](#4-decorators)
-  - [4.1. Controllers / Requests decorators](#41-controllers--requests-decorators)
-- [5. Tips & notes](#5-tips--notes)
-- [6. Inversion of Control Principle](#6-inversion-of-control-principle)
-  - [6.1. Bad version](#61-bad-version)
-  - [6.2. Better version](#62-better-version)
-  - [6.3. Best version](#63-best-version)
-- [7. Dependency Injection Flow](#7-dependency-injection-flow)
-  - [7.1. Steps 1 & 2](#71-steps-1--2)
-  - [7.2. Steps 3 & 4](#72-steps-3--4)
-  - [7.3. Examples](#73-examples)
-    - [7.3.1. Injecting an instance of service inside another instance of service](#731-injecting-an-instance-of-service-inside-another-instance-of-service)
+- [1. Getting started](#1-getting-started)
+- [2. NestJS conventions](#2-nestjs-conventions)
+  - [2.1. Projects structure](#21-projects-structure)
+  - [2.2. Naming conventions](#22-naming-conventions)
+- [3. NestJS CLI commands](#3-nestjs-cli-commands)
+- [4. VS Code](#4-vs-code)
+- [5. Decorators](#5-decorators)
+  - [5.1. Controllers / Requests decorators](#51-controllers--requests-decorators)
+- [6. Tips & notes](#6-tips--notes)
+- [7. Inversion of Control Principle](#7-inversion-of-control-principle)
+  - [7.1. Bad version](#71-bad-version)
+  - [7.2. Better version](#72-better-version)
+  - [7.3. Best version](#73-best-version)
+- [8. Dependency Injection Flow](#8-dependency-injection-flow)
+  - [8.1. Steps 1 & 2](#81-steps-1--2)
+  - [8.2. Steps 3 & 4](#82-steps-3--4)
+  - [8.3. Examples](#83-examples)
+    - [8.3.1. Injecting an instance of service inside another instance of service](#831-injecting-an-instance-of-service-inside-another-instance-of-service)
 
 <!-- /TOC -->
 
-## 1. NestJS conventions
+## 1. Getting started
 
-### 1.1. Projects structure
+Rename one of the `src-example-*` to `src` folder and run
+
+```shell
+npm run start:dev
+```
+
+## 2. NestJS conventions
+
+### 2.1. Projects structure
 
 - Pipe: help validating data in cinoming requests
 - Guard: make sure the user is authenticated
@@ -47,14 +56,14 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
 - Filter: handle errors that occur during request handling
 - Interceptor: add extra logic to incoming requests or outgoing responses
 
-### 1.2. Naming conventions
+### 2.2. Naming conventions
 
 - One class per file (some exceptions)
 - Class names should include the kind of thing we're creating
 - Name of class and name of file should always match up
 - Filename template: name.type_of_thing.ts
 
-## 2. NestJS CLI commands
+## 3. NestJS CLI commands
 
 ```shell
 # Generate a new NestJs project boilerplate
@@ -88,16 +97,16 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## 3. VS Code
+## 4. VS Code
 
 Install the `humao.rest-client` extension and add a `requests.http` file in the root folder.
 It allows to send requests thru VS Code and offers a kind of documentation of the existing routes of the app.
 
 A _"Send request"_ button appears to test request.
 
-## 4. Decorators
+## 5. Decorators
 
-### 4.1. Controllers / Requests decorators
+### 5.1. Controllers / Requests decorators
 
 Let's use an example
 
@@ -116,7 +125,7 @@ POST /messages/5?validate=true HTTP/1.1
   - Content-Type: application/json
 - @Body: get the content of the body
 
-## 5. Tips & notes
+## 6. Tips & notes
 
 - Use `class-validator` to validate properties
 - Use `class-transformer` to transform JSON objects into class instances
@@ -132,13 +141,13 @@ POST /messages/5?validate=true HTTP/1.1
     - Usually ends up being a TypeORM entity, a Mongoose schema or similar
     - Target a single entity type, with basic DTO methods
 
-## 6. Inversion of Control Principle
+## 7. Inversion of Control Principle
 
 Classes should not create instances of its dependenies on its own.
 
 > The following examples do not take care of the Nest Dependency Injection Container Flow yet
 
-### 6.1. Bad version
+### 7.1. Bad version
 
 ```typescript
 export class MessagesService {
@@ -151,7 +160,7 @@ export class MessagesService {
 }
 ```
 
-### 6.2. Better version
+### 7.2. Better version
 
 ```typescript
 export class MessagesService {
@@ -165,7 +174,7 @@ export class MessagesService {
 }
 ```
 
-### 6.3. Best version
+### 7.3. Best version
 
 ```typescript
 interface Repository {
@@ -198,7 +207,7 @@ export class MessagesService {
   -      |
   - class FakeRepository // I can help you! I don't actually write to the hard disk, so I am run fastly!
 
-## 7. Dependency Injection Flow
+## 8. Dependency Injection Flow
 
 1. At stratup, register all classes with the container
 2. Container will figure out what each dependency each class has
@@ -206,17 +215,17 @@ export class MessagesService {
 4. Container creates all required dependencies and give us the instance
 5. Container will hold onto the created dependency instances and reuse them if needed
 
-### 7.1. Steps 1 & 2
+### 8.1. Steps 1 & 2
 
 Use the `Injectable` decorator on each class and add them to the modules list of providers
 
-### 7.2. Steps 3 & 4
+### 8.2. Steps 3 & 4
 
 Happens automatically - Nest will try to create controller instances for us
 
-### 7.3. Examples
+### 8.3. Examples
 
-#### 7.3.1. Injecting an instance of service inside another instance of service
+#### 8.3.1. Injecting an instance of service inside another instance of service
 
 Let's admit a first service `Power Service` to inject within a second service `Regulator Service`
 
