@@ -19,7 +19,7 @@ export class AuthService {
   async signup(email: string, password: string): Promise<User> {
     const users = await this.usersService.find(email);
     if (users?.length) {
-      throw new BadRequestException('Uemail in use');
+      throw new BadRequestException('Email in use');
     }
 
     // Hash the users password
