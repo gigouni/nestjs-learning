@@ -20,6 +20,11 @@ export class UsersService {
   }
 
   findOne(id: number): Promise<User> | null {
+    // If the WhoAmI request does not have any cookie stored
+    if (!id) {
+      return null;
+    }
+
     return this.repo.findOneBy({ id });
   }
 

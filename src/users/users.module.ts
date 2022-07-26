@@ -4,12 +4,13 @@ import { UsersService } from './users.service';
 import { AuthService } from './auth.service';
 import { UsersController } from './users.controller';
 import { User } from './user.entity';
+import { CurrentUserInterceptor } from './interceptors/current-user-interceptor';
 
 @Module({
   // In sub modules, we use the `.forFeature(...)` to bind entities
   imports: [TypeOrmModule.forFeature([User])],
 
-  providers: [UsersService, AuthService],
   controllers: [UsersController],
+  providers: [UsersService, AuthService, CurrentUserInterceptor],
 })
 export class UsersModule {}
