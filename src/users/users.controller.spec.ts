@@ -29,7 +29,9 @@ describe('UsersController', () => {
 
     fakeAuthService = {
       // signup: () => {},
-      // signin: () => {},
+      signin: (email: string, password: string) => {
+        return Promise.resolve({ id: 1, email, password } as User);
+      },
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -68,6 +70,25 @@ describe('UsersController', () => {
       await expect(controller.findUser('123')).rejects.toThrow(
         new Error('User not found'),
       );
+    });
+  });
+
+  describe('signin', () => {
+    it('should sign in an existing user and update session object', async () => {
+      const session = { userId: -10 }; // -10 to mock prop typing
+
+      const user = await controller.signin(
+        {
+          email: 'email@example.com',
+          password: 'password',
+        },
+        session,
+      );
+
+      expect(user.id).toEqual(1);
+      expect(user.email).toEqual('email@example.com');
+
+      expect(session.userId).toEqual(1);
     });
   });
 });
