@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -13,12 +14,25 @@ const cookieSession = require('cookie-session'); // eslint-disable-line
 @Module({
   imports: [
     // the `forRoot(...)` allows to set properties of the module
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db.sqlite',
-      entities: [Report, User],
-      synchronize: true, // for development environment only! Auto-edit the database structure!
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
+
+    // Need to use `.forRootAsync(...)`syntax to use the ConfigService and get the environment variables
+    // Recommended way from NestJS documentation
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          type: 'sqlite',
+          database: config.get<string>('DB_NAME'),
+          entities: [Report, User],
+          synchronize: true, // for development environment only! Auto-edit the database structure!
+        };
+      },
+    }),
+
     UsersModule,
     ReportsModule,
   ],

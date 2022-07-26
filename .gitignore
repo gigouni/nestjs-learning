@@ -36,3 +36,4 @@ lerna-debug.log*
 
 # App/example files
 db.sqlite
+test.sqlite
