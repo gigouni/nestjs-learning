@@ -12,6 +12,8 @@ import { CurrentUserInterceptor } from './interceptors/current-user-interceptor'
   imports: [TypeOrmModule.forFeature([User])],
 
   controllers: [UsersController],
+
+  // Providers list the things we want to add the Dependency Injection Container
   providers: [
     UsersService,
     AuthService,
