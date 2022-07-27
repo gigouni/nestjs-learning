@@ -25,11 +25,11 @@ export class UsersService {
       return null;
     }
 
-    return this.repo.findOneBy({ id });
+    return this.repo.findOne(id);
   }
 
   find(email: string): Promise<User[]> {
-    return this.repo.findBy({ email });
+    return this.repo.find({ email });
   }
 
   async update(id: number, attrs: Partial<User>): Promise<User> {
