@@ -64,6 +64,7 @@ export class ReportsService {
         .andWhere('lng - :lng BETWEEN -5 AND 5', { lng })
         .andWhere('lat - :lat BETWEEN -5 AND 5', { lat })
         .andWhere('year - :year BETWEEN -3 AND 3', { year })
+        .andWhere('approved IS TRUE')
         // Use the absolute value of the difference to get the order by closest mileage
         .orderBy('ABS(mileage - :mileage)', 'DESC')
         // The `.orderBy(..)` method does not allow to add the mileage value without `setParameters(...)`
