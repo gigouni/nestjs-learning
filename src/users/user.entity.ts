@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import { Report } from 'src/reports/report.entity';
+import { Report } from '../reports/report.entity';
 
 // By refering to other conventions, we should be naming it UserEntity
 // BUT, by community conventions, the entities are the only ones allowed to remove the `Entity` suffix

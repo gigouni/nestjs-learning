@@ -47,6 +47,12 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
   - [10.1. One To One](#101-one-to-one)
   - [10.2. One To Many and Many To One](#102-one-to-many-and-many-to-one)
   - [10.3. Many To Many](#103-many-to-many)
+- [11. Migrations](#11-migrations)
+  - [11.1. Two methods](#111-two-methods)
+  - [11.2. Example](#112-example)
+  - [11.3. Creating and running migrations during development](#113-creating-and-running-migrations-during-development)
+  - [11.4. How to generate a migration](#114-how-to-generate-a-migration)
+  - [11.5. How to run or revert migration](#115-how-to-run-or-revert-migration)
 
 <!-- /TOC -->
 
@@ -423,3 +429,57 @@ export class Party {
 
 - Does change the `Student` and `Party` tables
 - Association **is not automatically fetched** when we fetch a Car or an Engine
+
+## 11. Migrations
+
+Files to perform operations over the database in production environment.
+
+### 11.1. Two methods
+
+- up()
+  - Describes how to "update" the structure of our database
+- down()
+  - Describes how to undo the steps in `up()`
+
+### 11.2. Example
+
+- up()
+  - Add a table called `users`
+  - Give the table a column `email`
+  - Give the table a column `password`
+- down()
+  - Delete the table called `users`
+
+### 11.3. Creating and running migrations during development
+
+1. Stop the development server
+2. Use the TypeORM CLI to generate an empty migration file
+3. Add some code to change our database in the migration file
+4. Use the TypeORM CLI to apply the migration to the database
+
+- TypeORM CLI will execute _only_ our entity files + migration file, then connect to the database and make the changes
+- It has no idea of what NestJS
+  - No idea about the Dependency Injection
+  - No idea even of the ConfigService used to target the correct environment variables file
+
+5. Database is updated! Restart the development server
+
+### 11.4. How to generate a migration
+
+From [the official TypeORM documentation](https://typeorm.io/migrations#generating-migrations)
+
+```shell
+npm run typeorm migration:generate -- -n initial-schema -o
+```
+
+### 11.5. How to run or revert migration
+
+From [the official documentation](https://typeorm.io/migrations#running-and-reverting-migrations)
+
+```shell
+# Up the migration
+npm run typeorm migration:run
+
+# Down the migration
+npm run typeorm migration:revert
+```
