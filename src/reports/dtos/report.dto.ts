@@ -25,6 +25,9 @@ export class ReportDto {
   @Expose()
   mileage: number;
 
+  @Expose()
+  approved: boolean;
+
   // Do not expose the whole user entity to prevent leaking sensitive properties like passwords, etc...
   // Transform data to only return its user.id
   // Still allow to get user data if required
