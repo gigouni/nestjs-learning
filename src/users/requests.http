@@ -1,0 +1,52 @@
+### Create a new user (signup)
+POST http://localhost:4000/auth/signup
+content-type: application/json
+
+{
+    "email": "development-4@example.com",
+    "password": "awesomeSecret"
+}
+
+### Create a new user (signin)
+POST http://localhost:4000/auth/signin
+content-type: application/json
+
+{
+    "email": "development-4@example.com",
+    "password": "awesomeSecret"
+}
+
+### Log out current user
+GET http://localhost:4000/auth/signout
+
+### Update a user
+PATCH http://localhost:4000/auth/3
+content-type: application/json
+
+{
+    "password": "newAwesomeSecret"
+}
+
+### Find all users
+GET http://localhost:4000/auth/
+
+### Find users with a given email
+GET http://localhost:4000/auth?email=development@example.com
+
+### Find a particular user with a given ID
+GET http://localhost:4000/auth/2
+
+### Delete a user by ID
+DELETE http://localhost:4000/auth/4
+
+### Find color from session
+GET http://localhost:4000/auth/colors/
+
+### Update color into session
+GET http://localhost:4000/auth/colors/blue
+
+### Get the current Who Am I
+GET http://localhost:4000/auth/whoami
+
+### Get the current user using a custom interceptor + decorator
+GET http://localhost:4000/auth/currentUser
