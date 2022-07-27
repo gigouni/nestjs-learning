@@ -23,6 +23,10 @@ export class User {
   @Column()
   password: string;
 
+  // { default: true } is obviously not what we're expecting but it's for this demonstration usage only!
+  @Column({ default: true })
+  admin: boolean;
+
   @OneToMany(() => Report, (report) => report.user)
   reports: Report[];
 

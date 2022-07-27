@@ -11,7 +11,7 @@ import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
-  constructor(public messagesService: MessagesService) {}
+  constructor(private messagesService: MessagesService) {}
 
   @Get()
   listMessages() {

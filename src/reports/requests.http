@@ -13,7 +13,7 @@ content-type: application/json
 }
 
 ### Change approval of a report
-PATCH http://localhost:4000/reports/3
+PATCH http://localhost:4000/reports/4
 content-type: application/json
 
 {
