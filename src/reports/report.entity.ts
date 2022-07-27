@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 // By refering to other conventions, we should be naming it ReportEntity
 // BUT, by community conventions, the entities are the only ones allowed to remove the `Entity` suffix
@@ -27,4 +28,7 @@ export class Report {
 
   @Column()
   mileage: number;
+
+  @ManyToOne(() => User, (user) => user.reports)
+  user: User;
 }

@@ -6,7 +6,9 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
+import { Report } from 'src/reports/report.entity';
 
 // By refering to other conventions, we should be naming it UserEntity
 // BUT, by community conventions, the entities are the only ones allowed to remove the `Entity` suffix
@@ -20,6 +22,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Report, (report) => report.user)
+  reports: Report[];
 
   @AfterInsert()
   logInsert() {
