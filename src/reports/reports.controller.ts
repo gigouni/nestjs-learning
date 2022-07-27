@@ -1,5 +1,7 @@
 import {
   Controller,
+  Get,
+  Query,
   Post,
   Body,
   UseGuards,
@@ -15,10 +17,16 @@ import { ReportDto } from './dtos/report.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ApproveReportDto } from './dtos/approve-report.dto';
 import { AdminGuard } from 'src/guards/admin.guards';
+import { GetEstimateDto } from './dtos/get-estimate.dto';
 
 @Controller('reports')
 export class ReportsController {
   constructor(private reportsService: ReportsService) {}
+
+  @Get()
+  getEstimate(@Query() query: GetEstimateDto) {
+    return this.reportsService.getEstimate(query);
+  }
 
   @Post()
   @UseGuards(AuthGuard)

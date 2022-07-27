@@ -301,6 +301,11 @@ App to read messages from a file while being able to update its content.
   - GET /reports
     - QueryString make/model/year/mileage/longitude/latitude
     - Get an estimate for the cars value
+      - Search through all reports we have
+      - Find reports for the same make/model
+      - Within +/- 5 longitude/latitude degrees
+      - Within +/- 3 years
+      - Order by closest mileage
 - Users can report what they sold their vehicles for
   - POST /reports
     - Body { make, model, year, mileage, longitude, latitude, price }
