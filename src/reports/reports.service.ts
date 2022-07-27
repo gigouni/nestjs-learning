@@ -34,7 +34,44 @@ export class ReportsService {
     return this.repo.save(report);
   }
 
-  async getEstimate(estimate: GetEstimateDto) {
-    throw new Error('Method not implemented.');
+  async createEstimate({
+    make,
+    model,
+    lng,
+    lat,
+    year,
+    mileage,
+  }: GetEstimateDto) {
+    // Examples
+    //      Most basic query builder, returns all Report table data
+    //      return this.repo.createQueryBuilder().select('*').getRawMany();
+    //
+    //      Other basic query builder, returns all reports about Toyota
+    //      return this.repo
+    //        .createQueryBuilder()
+    //        .select('*')
+    //        .where('make = :make', { make: estimateDto.make })
+    //        .getRawMany();
+    //
+    // The `where('make = :make', { make: estimateDto.make })` syntax is to prevent SQL injection attacks
+
+    return (
+      this.repo
+        .createQueryBuilder()
+        .select('AVG(price)', 'price')
+        .where('make = :make AND model = :model', { make })
+        .andWhere('model = :model', { model })
+        .andWhere('lng - :lng BETWEEN -5 AND 5', { lng })
+        .andWhere('lat - :lat BETWEEN -5 AND 5', { lat })
+        .andWhere('year - :year BETWEEN -3 AND 3', { year })
+        // Use the absolute value of the difference to get the order by closest mileage
+        .orderBy('ABS(mileage - :mileage)', 'DESC')
+        // The `.orderBy(..)` method does not allow to add the mileage value without `setParameters(...)`
+        .setParameters({ mileage })
+        // Keep only the 3 top responses
+        .limit(3)
+        // We get the average from the three responses, only one answer should be returned
+        .getRawOne()
+    );
   }
 }
