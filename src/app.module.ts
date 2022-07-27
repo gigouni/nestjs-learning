@@ -47,9 +47,17 @@ const cookieSession = require('cookie-session'); // eslint-disable-line
   ],
 })
 export class AppModule {
+  constructor(private configService: ConfigService) {}
+
   configure(consumer: MiddlewareConsumer) {
     // Apply a global middleware
     // Need to be done in the `app.module.ts` to allow Jest to use the cookie sessions and prevent falsy "500 Internal Server Error"
-    consumer.apply(cookieSession({ keys: ['zertyuj'] })).forRoutes('*');
+    consumer
+      .apply(
+        cookieSession({
+          keys: [this.configService.get<string>('COOKIE_KEY')],
+        }),
+      )
+      .forRoutes('*');
   }
 }
