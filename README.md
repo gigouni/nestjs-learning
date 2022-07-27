@@ -43,6 +43,10 @@ NestJS tutorials, self-taught learning, ... Starting from the bottom, now you're
   - [9.3. Project 3: Used Car Pricing API](#93-project-3-used-car-pricing-api)
     - [9.3.1. Features](#931-features)
     - [9.3.2. Objectives](#932-objectives)
+- [10. Associations](#10-associations)
+  - [10.1. One To One](#101-one-to-one)
+  - [10.2. One To Many and Many To One](#102-one-to-many-and-many-to-one)
+  - [10.3. Many To Many](#103-many-to-many)
 
 <!-- /TOC -->
 
@@ -310,3 +314,107 @@ App to read messages from a file while being able to update its content.
 
 - More complex examples of interconnections between modules
 - Implement side features like auth, roles, ...
+
+## 10. Associations
+
+### 10.1. One To One
+
+- Bind one entity instance with only one instance of another entity
+- Example: a car and its engine, a person and its birth city
+
+```typescript
+import { OneToOne } from '@nestjs/common';
+
+@Entity()
+export class Car {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  // ...
+
+  @OneToOne(() => Engine, (engine) => engine.car)
+  engine: Engine;
+}
+
+@Entity()
+export class Engine {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  // ...
+
+  @OneToOne(() => Car, (car) => car.engine)
+  car: Car;
+}
+```
+
+- Association **is not automatically fetched** when we fetch a Car or an Engine
+
+### 10.2. One To Many and Many To One
+
+- Bind one entity type instance with one or several other entity type instances
+- Example: a car and its wheels
+
+```typescript
+import { OneToMany, ManyToOne } from '@nestjs/common';
+
+@Entity()
+export class Car {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  // ...
+
+  @OneToMany(() => Wheel, (wheels) => wheels.car)
+  wheels: Wheel[];
+}
+
+@Entity()
+export class Wheel {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  // ...
+
+  @ManyToOne(() => Car, (car) => car.wheels)
+  car: Car;
+}
+```
+
+- Does not change the `Car` table
+- Does change the `Wheel` table
+- Association **is not automatically fetched** when we fetch a Car or an Engine
+
+### 10.3. Many To Many
+
+- Bind several entity type instances with one or several other entity type instances
+- Example: students and parties
+
+```typescript
+import { ManyToMany } from '@nestjs/common';
+
+@Entity()
+export class Student {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  // ...
+
+  @ManyToMany(() => Party, (party) => party.students)
+  parties: Party[];
+}
+
+@Entity()
+export class Party {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  // ...
+
+  @ManyToMany(() => Student, (student) => student.parties)
+  students: Student[];
+}
+```
+
+- Does change the `Student` and `Party` tables
+- Association **is not automatically fetched** when we fetch a Car or an Engine
